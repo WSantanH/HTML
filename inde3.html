@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML Fundamentos e Css.</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            body {
+                background: linear-gradient(120deg, #23272f 0%, #2193b0 100%);
+                min-height: 100vh;
+                margin: 0;
+                color: #e0e0e0;
+                font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .glass {
+                background: rgba(33, 37, 43, 0.7);
+                border-radius: 16px;
+                box-shadow: 0 8px 32px 0 rgba(33,147,176,0.37);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                border: 1px solid rgba(33,147,176,0.18);
+                padding: 24px;
+                margin: 24px 0;
+                width: 95%;
+                max-width: 700px;
+                animation: fadeInUp 1s;
+            }
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(30px);}
+                to { opacity: 1; transform: translateY(0);}
+            }
+            h1, h2, h3 {
+                background: linear-gradient(90deg, #2193b0 60%, #6dd5ed 100%);
+                color: #fff;
+                padding: 8px 16px;
+                border-radius: 8px;
+                margin-bottom: 16px;
+                box-shadow: 0 2px 8px rgba(33,147,176,0.2);
+                text-shadow: 0 2px 8px #23272f88;
+                letter-spacing: 1px;
+            }
+            .perfil-container {
+                position: fixed;
+                top: 20px;
+                right: 30px;
+                z-index: 1000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: none;
+            }
+            .perfil-foto-bg {
+                position: relative;
+                width: 70px;
+                height: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: radial-gradient(circle at 60% 40%, #2193b0 70%, #6dd5ed 100%);
+                border-radius: 50%;
+                box-shadow: 0 0 32px 12px #2193b088;
+                margin-bottom: 4px;
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0% { box-shadow: 0 0 32px 12px #2193b088; }
+                50% { box-shadow: 0 0 40px 20px #6dd5ed88; }
+                100% { box-shadow: 0 0 32px 12px #2193b088; }
+            }
+            .perfil-foto {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                border: 2px solid #fff;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                position: relative;
+                z-index: 2;
+            }
+            .icon-code {
+                position: absolute;
+                bottom: -10px;
+                right: -10px;
+                background: #23272f;
+                color: #6dd5ed;
+                border-radius: 50%;
+                width: 28px;
+                height: 28px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                box-shadow: 0 2px 8px rgba(33,147,176,0.4);
+                z-index: 3;
+                border: 2px solid #2193b0;
+            }
+            .logout-btn {
+                display: none;
+                position: absolute;
+                top: 75px;
+                right: 0;
+                background: linear-gradient(90deg, #2193b0, #6dd5ed);
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+                opacity: 0;
+                transition: opacity 0.4s, transform 0.4s;
+                transform: translateY(-10px);
+                font-size: 1em;
+                font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+            }
+            .perfil-container:hover .logout-btn,
+            .logout-btn.show {
+                display: block;
+                opacity: 1;
+                transform: translateY(0);
+            }
+            button {
+                font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+                background: linear-gradient(90deg, #2193b0, #6dd5ed);
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 22px;
+                margin-right: 10px;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                transition: transform 0.2s, box-shadow 0.2s;
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+            button:hover {
+                transform: scale(1.08);
+                box-shadow: 0 4px 16px rgba(33,147,176,0.4);
+                background: linear-gradient(90deg, #6dd5ed, #2193b0);
+            }
+            input, select {
+                font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+                background: #23272f;
+                color: #e0e0e0;
+                border: 1px solid #2193b0;
+                border-radius: 5px;
+                padding: 8px;
+                margin-bottom: 12px;
+                width: 100%;
+                max-width: 300px;
+                box-sizing: border-box;
+                font-size: 1em;
+            }
+            a {
+                color: #ffe082;
+                text-decoration: underline;
+                transition: color 0.2s;
+            }
+            a:hover {
+                color: #fff176;
+            }
+            table {
+                background: rgba(33, 37, 43, 0.9);
+                border-radius: 8px;
+                padding: 8px;
+                margin-bottom: 20px;
+                color: #e0e0e0;
+                border-collapse: collapse;
+                width: 100%;
+                box-shadow: 0 2px 8px rgba(33,147,176,0.2);
+            }
+            th, td {
+                border: 1px solid #2193b0;
+                padding: 8px;
+            }
+            th {
+                background: #2193b0;
+                color: #fff;
+            }
+            ul, ol {
+                margin-left: 24px;
+            }
+            /* Scrollbar custom */
+            ::-webkit-scrollbar {
+                width: 8px;
+                background: #23272f;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #2193b0;
+                border-radius: 8px;
+            }
+            #info-numero {
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 2000;
+                background: rgba(33, 37, 43, 0.85);
+                color: #ffe082;
+                font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+                padding: 10px 18px;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(33,147,176,0.2);
+                font-size: 1em;
+                max-width: 95vw;
+                word-break: break-word;
+            }
+            @media (max-width: 600px) {
+                body {
+                    padding: 0 4px;
+                }
+                .glass {
+                    padding: 10px;
+                    margin: 10px 0;
+                    max-width: 98vw;
+                }
+                h1, h2, h3 {
+                    font-size: 1.2em;
+                    padding: 6px 8px;
+                }
+                .perfil-container {
+                    position: static;
+                    margin: 0 auto 12px auto;
+                    width: 100%;
+                    justify-content: center;
+                    background: none;
+                }
+                .perfil-foto-bg {
+                    width: 44px;
+                    height: 44px;
+                    margin: 0 auto;
+                }
+                .perfil-foto {
+                    width: 36px;
+                    height: 36px;
+                }
+                .icon-code {
+                    width: 18px;
+                    height: 18px;
+                    font-size: 12px;
+                    bottom: -6px;
+                    right: -6px;
+                }
+                input, select {
+                    width: 100%;
+                    min-width: 0;
+                    box-sizing: border-box;
+                }
+                button, .logout-btn {
+                    padding: 8px 12px;
+                    font-size: 1em;
+                }
+                table {
+                    font-size: 0.9em;
+                }
+                #info-numero {
+                    position: static;
+                    display: block;
+                    margin: 12px auto 0 auto;
+                    width: 98vw;
+                    text-align: center;
+                    box-shadow: none;
+                    border-radius: 8px;
+                }
+            }
+            /* ...seu CSS existente... */
+            .perfil-container {
+                position: fixed;
+                top: 20px;
+                right: 30px;
+                z-index: 1000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: none;
+            }
+            #trocarFotoBtn, #logoutBtn {
+                width: 100%;
+                max-width: 140px;
+                margin: 8px 0 0 0;
+                position: static;
+                box-sizing: border-box;
+            }
+            @media (max-width: 600px) {
+                .perfil-container {
+                    position: static;
+                    margin: 0 auto 12px auto;
+                    width: 100%;
+                    justify-content: center;
+                    background: none;
+                }
+                .perfil-foto-bg {
+                    margin: 0 auto;
+                }
+                #trocarFotoBtn, #logoutBtn {
+                    max-width: 98vw;
+                    font-size: 1em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="info-numero">
+        Para mais informações disque <b>75-9716-3401</b>.
+    </div>
+        <div class="perfil-container">
+            <div class="perfil-foto-bg">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de perfil" class="perfil-foto" id="fotoPerfil">
+                <span class="icon-code">&#60;/&#62;</span>
+            </div>
+            <input type="file" id="inputFoto" accept="image/*" style="display:none" />
+            <button id="trocarFotoBtn">Trocar foto</button>
+            <button class="logout-btn" id="logoutBtn" onclick="deslogar()">Deslogar</button>
+        </div>
+
+        <div class="glass">
+            <h1>Fundamentos do HTML</h1>
+            <h3>Aprendam comigo e cresçam juntos!</h3>
+
+            <!-- Botões de Cadastro e Login -->
+            <button onclick="mostrarCadastro()">Cadastro</button>
+            <button onclick="mostrarLogin()">Login</button>
+
+            <div id="cadastro" class="glass" style="display:none;">
+                <h2>Cadastro</h2>
+                <form onsubmit="return cadastrar(event)">
+                    <input type="text" placeholder="Nome" required><br>
+                    <input type="email" placeholder="Email" required><br>
+                    <input type="password" placeholder="Senha" required><br>
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+
+            <div id="login" class="glass" style="display:none;">
+                <h2>Login</h2>
+                <form id="formLogin" onsubmit="return entrar(event)">
+                    <input type="email" placeholder="Email" required><br>
+                    <input type="password" placeholder="Senha" required><br>
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="glass">
+            <p>Como visto acima temos títulos e subtítulos, eles são usados com as tags h1 até h6.</p>
+            <br />
+            <p>Agora temos por fim a tag br, ela é responsável pelo espaçamento.</p>
+            <hr />
+            <p>Agora temos a tag hr, que serve para criar uma linha horizontal.</p>
+            <hr>
+            <!-- este é um comentário -->
+            <p>Agora temos o comentário, ele é utilizado para adicionar notas.</p>
+            <!-- 2 - atributos -->
+            <hr>
+            <a href="https://www.google.com">Acesse o Google</a>
+            <!-- 3 - atributos -->
+            <p>A tag href é usada para por links no seu site.</p>
+            <!-- 4 - abrir aba com link -->
+            <a href="http://www.google.com" target="_blank">Abrir Google em nova aba</a>
+            <!-- 5 - inserir imagem -->
+            <img src="img/stable-diffusion-imagem.jpg" alt="" style="width:200px; border-radius:8px; margin:10px 0;">
+            <p>Como você pode ver usamos a tag img, que é usada para adicionar imagens ao seu site.</p>
+            <!-- 6 - atributo alt -->
+            <img src="img/images.jfif" alt="flores" style="width:200px; border-radius:8px; margin:10px 0;">
+            <p>Como podemos ver, é possível usar o atributo alt na imagem, que serve como leitor do google.</p>
+            <!-- 7 - listas não ordenadas-->
+            <ul>
+                <li>carros</li>
+                <li>motos</li>
+            </ul>
+            <p>Como podemos ver, podemos usar as listas não ordenadas para listar e deixar em destaque.</p>
+            <!-- 8 - listas ordenadas -->
+            <ol>
+                <li>listas ordenadas</li>
+            </ol>
+            <p>Como podemos ver, as listas ordenadas são usadas para colocar não um ponto ou seja tópico, mas sim em números.</p>
+            <!-- 9 - tabelas -->
+            <table>
+                <tr>
+                    <th>ID:</th>
+                    <th>Aulas:</th>
+                    <th>Contato:</th>  
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Wayllahn</td>
+                    <td>Email</td>
+                </tr>
+            </table>
+            <p>Como você pode ver é possível utilizar a tag table, que serve para tabela e também th e td.</p>
+            <!-- 10 - tag div -->
+            <div>
+                <h2>Div, o que é?</h2>
+            </div>
+            <p>A tag div é usada para dividir.</p>
+            <!-- 12 - div -->
+            <div>
+                <h2>A tag é muito utilizada para estruturar visualmente o conteúdo das páginas web.</h2>
+                <p>A tag no HTML é usada para criar divisões ou seções em uma página. Ela não tem significado semântico, mas serve para agrupar elementos e facilitar a organização do layout, principalmente quando você quer aplicar estilos com CSS ou manipular partes do site com JavaScript.</p>
+                <a href="https://www.w3schools.com/html/html_div.asp" target="_blank">Para mais informações sobre, acesse o site.</a> 
+                
+                <h1>Maneiras de utilizar e/ou adicionar css</h1>
+                <p>Temos maneiras de utilizar o css ao html.</p>
+                <ol id="lista" class="lista-ordenada"></ol>
+                <li>Pelo inline: quando os estilos são adicionados por um atributo;</li> 
+                <li>Pelo internal: quando o CSS é adicionado na tag head;</li>
+                <li>Pelo external: quado o css é adicionado através de um arquivo externo, e depois importado no HTMl;</li>
+                <H1>Qual vamos escolher?</H1>
+                <p>Vamos optar  sempre pelo external CSS, quando houver a opção.</p>
+                <h1>A anatomia do CSS</h1>
+                <p>Com CSS aplicando CSS a um elemento. Primeiramente devemos selecionar o elemento, isso pode ser feito através da tag do elemento. Depois precisamos colocar as propriedades e os valores, se quisermos mudar a cor de algo utilizamos: color: red, nome da propriedade, dois pontos, valor, ponto e vírgula.</p>
+                <h1>Inline CSS</h1>
+                <p>O inline CSS é quando você aplica estilos diretamente em um elemento HTML usando o atributo style, mas pode ser utilizado sem selecionar o elemento, pois é uma tributo diretamente inserido no mesmo.</p>
+                <p>Ele nos permite:</p> 
+                <li>Aplicar estilos específicos a um único elemento;</li>
+                <li>Sobrepor estilos definidos em folhas de estilo externas ou internas;</li>
+                <li>Ser útil para testes rápidos ou ajustes pontuais;</li>
+                <p>Porém, o inline CSS não é recomendado para uso extensivo, pois pode tornar o código HTML desorganizado e difícil de manter. É melhor usar folhas de estilo externas ou internas para aplicar estilos de forma consistente em todo o site.</p>
+                <h1>Internal CSS</h1>
+                <p>O CSS interno é uma técnica melhor que o inline, vamos colocar todos os estilos na tag head;</p>
+                <li>As regras precisam também estar entre a tag style;</li>
+                <li>E através desta maneira, é necessário selecionar o elmento alvo: p{ color: red;}
+                <h1>External CSS</h1>
+                <p>Para adicionar CSS com esta técnica precisamos criar um arquivo . css;</p>
+                <li>Geralmente eles ficam numa pasta chamada css;</li>
+                <li>E nós o importamos através da tag link;</li>
+                <li>O link deve estar dentro da tag head;</li>
+                <li>O link deve ter o atributo rel com o valor stylesheet e as regras que estão no arquivo são aplicadas no HTML.</li>
+                </li>
+            </div>
+        </div>
+
+        <script>
+            // Exemplo de "banco de dados" de usuários com foto
+            const usuarios = [
+                { email: "joao@email.com", senha: "123", nome: "João", foto: "https://randomuser.me/api/portraits/men/32.jpg" },
+                { email: "maria@email.com", senha: "abc", nome: "Maria", foto: "https://randomuser.me/api/portraits/women/44.jpg" }
+                // Adicione mais usuários conforme necessário
+            ];
+
+            function setUsuarioLogado(email) {
+                localStorage.setItem('usuarioLogado', email);
+            }
+            function getUsuarioLogado() {
+                return localStorage.getItem('usuarioLogado');
+            }
+            function removerUsuarioLogado() {
+                localStorage.removeItem('usuarioLogado');
+            }
+
+            function atualizarFotoPerfil() {
+                const email = getUsuarioLogado();
+                const usuario = usuarios.find(u => u.email === email);
+                const foto = usuario ? usuario.foto : "https://randomuser.me/api/portraits/men/32.jpg";
+                document.querySelector('.perfil-foto').src = foto;
+            }
+
+            function esconderBotoes() {
+                document.querySelectorAll('button[onclick="mostrarCadastro()"], button[onclick="mostrarLogin()"]').forEach(btn => {
+                    btn.style.display = 'none';
+                });
+            }
+            function mostrarBotoes() {
+                document.querySelectorAll('button[onclick="mostrarCadastro()"], button[onclick="mostrarLogin()"]').forEach(btn => {
+                    btn.style.display = '';
+                });
+            }
+
+            function mostrarCadastro() {
+                const cadastro = document.getElementById('cadastro');
+                const login = document.getElementById('login');
+                if (cadastro.style.display === 'block') {
+                    cadastro.style.display = 'none';
+                } else {
+                    cadastro.style.display = 'block';
+                    login.style.display = 'none';
+                }
+            }
+            function mostrarLogin() {
+                const login = document.getElementById('login');
+                const cadastro = document.getElementById('cadastro');
+                if (login.style.display === 'block') {
+                    login.style.display = 'none';
+                } else {
+                    login.style.display = 'block';
+                    cadastro.style.display = 'none';
+                }
+            }
+            function deslogar() {
+                alert("Você foi deslogado!");
+                document.getElementById('cadastro').style.display = 'none';
+                document.getElementById('login').style.display = 'none';
+                removerUsuarioLogado();
+                mostrarBotoes();
+                atualizarFotoPerfil();
+            }
+            function entrar(event) {
+                event.preventDefault();
+                const email = event.target.querySelector('input[type="email"]').value;
+                const senha = event.target.querySelector('input[type="password"]').value;
+                const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+                if (usuario) {
+                    setUsuarioLogado(email);
+                    alert("Login realizado com sucesso!");
+                    document.getElementById('login').style.display = 'none';
+                    esconderBotoes();
+                    atualizarFotoPerfil();
+                } else {
+                    alert("Usuário ou senha incorretos!");
+                }
+                return false;
+            }
+            function cadastrar(event) {
+                event.preventDefault();
+                const nome = event.target.querySelector('input[type="text"]').value;
+                const email = event.target.querySelector('input[type="email"]').value;
+                const senha = event.target.querySelector('input[type="password"]').value;
+                // Foto padrão para novos usuários
+                const foto = "https://randomuser.me/api/portraits/lego/1.jpg";
+                usuarios.push({ nome, email, senha, foto });
+                setUsuarioLogado(email);
+                alert("Cadastro realizado com sucesso!");
+                document.getElementById('cadastro').style.display = 'none';
+                esconderBotoes();
+                atualizarFotoPerfil();
+                return false;
+            }
+
+            // Ao carregar a página, verifica se o usuário está logado
+            window.onload = function() {
+                if (getUsuarioLogado()) {
+                    esconderBotoes();
+                    atualizarFotoPerfil();
+                } else {
+                    mostrarBotoes();
+                    atualizarFotoPerfil();
+                }
+            };
+
+            document.getElementById('trocarFotoBtn').addEventListener('click', function() {
+        document.getElementById('inputFoto').click();
+    });
+
+    document.getElementById('inputFoto').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('fotoPerfil').src = e.target.result;
+                // Se quiser salvar para o usuário atual:
+                const email = getUsuarioLogado();
+                const usuario = usuarios.find(u => u.email === email);
+                if (usuario) usuario.foto = e.target.result;
+                // Também pode salvar em localStorage se quiser persistir a foto personalizada
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+        </script>
+    </body>
+</html>

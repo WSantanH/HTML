@@ -1,0 +1,18 @@
+.lista-ordenada {
+    background: #111;
+    color: #fff;
+}
+
+.lista-ordenada li {
+    color: #ff0000;
+}
+
+.lista-ordenada li:first-child {
+    color: aqua;
+}
+
+@media (min-width: 768px) {
+    body {
+        padding: 4rem;
+    }
+}
